@@ -2,7 +2,7 @@
 
 # Django-Access-Select2
 
-The Django-Access-Select2 package provides a default filtering for the [Django-Select2](http://django-select2.readthedocs.io/en/latest/) package to use access rules defined by the [Django-Access](https://github.com/nnseva/django-access) package.
+The Django-Access-Select2 package provides a filtering for the [Django-Select2](http://django-select2.readthedocs.io/en/latest/) package to use access rules defined by the [Django-Access](https://github.com/nnseva/django-access) package.
 
 ## Installation
 
