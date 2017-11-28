@@ -1,6 +1,7 @@
-from django.http import Http404, JsonResponse
+from django.http import JsonResponse
 
 from django_select2.views import AutoResponseView as _AutoResponseView
+
 
 class AutoResponseView(_AutoResponseView):
     def get(self, request, *args, **kwargs):
@@ -15,11 +16,11 @@ class AutoResponseView(_AutoResponseView):
                     'id': obj.pk,
                 }
                 for obj in context['object_list']
-                ],
+            ],
             'more': context['page_obj'].has_next()
         })
 
-    def get_queryset(self,request):
+    def get_queryset(self, request):
         """Get QuerySet from cached widget."""
         kwargs = {
             model_field_name: self.request.GET.get(form_field_name)

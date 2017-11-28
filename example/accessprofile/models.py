@@ -14,7 +14,7 @@ AccessManager.register_plugins({
     Permission:ApplyAblePlugin(visible=lambda queryset, request: queryset.filter(
             Q(user=request.user) |
             Q(group__in=request.user.groups.all())
-        )),
+        ).distinct()),
     User:CompoundPlugin(
         CheckAblePlugin(
             appendable=lambda model, request: DjangoAccessPlugin().check_appendable(model, request),
@@ -60,18 +60,18 @@ AccessManager.register_plugins({
     SomeObject: CompoundPlugin(
         DjangoAccessPlugin(),
         ApplyAblePlugin(
-            visible=lambda queryset, request: queryset.filter(Q(editor_group__in=request.user.groups.all())|Q(viewer_groups__in=request.user.groups.all())),
-            changeable=lambda queryset, request: queryset.filter(Q(editor_group__in=request.user.groups.all())),
+            visible=lambda queryset, request: queryset.filter(Q(editor_group__in=request.user.groups.all())|Q(viewer_groups__in=request.user.groups.all())).distinct(),
+            changeable=lambda queryset, request: queryset.filter(Q(editor_group__in=request.user.groups.all())).distinct(),
             #deleteable=lambda queryset, request: queryset.filter(Q(editor_group__in=request.user.groups.all())).exclude(Q(children__is_archived=False)),
-            deleteable=lambda queryset, request: queryset.filter(Q(editor_group__in=request.user.groups.all())),
+            deleteable=lambda queryset, request: queryset.filter(Q(editor_group__in=request.user.groups.all())).distinct(),
         )
     ),
     SomeChild: CompoundPlugin(
         DjangoAccessPlugin(),
         ApplyAblePlugin(
-            visible=lambda queryset, request: queryset.filter(Q(is_archived=False)&(Q(parent__editor_group__in=request.user.groups.all())|Q(parent__viewer_groups__in=request.user.groups.all()))),
-            changeable=lambda queryset, request: queryset.filter(Q(parent__editor_group__in=request.user.groups.all())),
-            deleteable=lambda queryset, request: queryset.filter(Q(is_archived=True) & Q(parent__editor_group__in=request.user.groups.all())),
+            visible=lambda queryset, request: queryset.filter(Q(is_archived=False)&(Q(parent__editor_group__in=request.user.groups.all())|Q(parent__viewer_groups__in=request.user.groups.all()))).distinct(),
+            changeable=lambda queryset, request: queryset.filter(Q(parent__editor_group__in=request.user.groups.all())).distinct(),
+            deleteable=lambda queryset, request: queryset.filter(Q(is_archived=True) & Q(parent__editor_group__in=request.user.groups.all())).distinct(),
         )
     )
 })

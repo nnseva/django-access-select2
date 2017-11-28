@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'access',
+    'django_select2',
+    'access_select2',
     'someapp',
     'accessprofile',
 ]

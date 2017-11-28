@@ -53,8 +53,20 @@ Note that the Django-Access-Select2 package uses only `apply_visible` AccessMana
 Remove if preset, the existent reference to the widget, and use the modified one
 
 ```python
-# from django_select2.forms import ModelSelect2Widget, ModelSelect2MultipleWidget -- removed
-from access_select2.forms import ModelSelect2Widget, ModelSelect2MultipleWidget # -- modified
+# from django_select2.forms import ModelSelect2Widget, ModelSelect2MultipleWidget, ModelSelect2TagWidget -- removed
+from access_select2.forms import ModelSelect2Widget, ModelSelect2MultipleWidget, ModelSelect2TagWidget # -- modified
+```
+
+***Note*** that the `select2.js` library requires `jQuery` media, but Django-Select2 package doesn't refer it.
+Sometimes it leads to broken functional of the Django-Select2 package, for instance on the admin page by default. You may use
+any tool to include the `jQuery` media into your pages. For instance, you can use a special `Media` class in your Admin classes,
+or forms using Django-Select2 widgets, like this:
+
+```
+class SomeObjectAdmin(ModelAdmin):
+    ...
+    class Media:
+        js = ['//code.jquery.com/jquery-2.2.4.js']
 ```
 
 ### Modified view

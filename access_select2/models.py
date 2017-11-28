@@ -1,3 +1,1 @@
-'''
-Compatibility file
-'''
+'Compatibility file'
