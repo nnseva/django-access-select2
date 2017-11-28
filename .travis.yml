@@ -1,0 +1,12 @@
+language: python
+addons:
+  apt:
+    packages:
+    - python3.4
+install:
+  - pip install tox
+script:
+  - tox
+sudo: false
+notifications:
+    email: false
